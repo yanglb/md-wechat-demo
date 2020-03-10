@@ -1,5 +1,6 @@
 'use strict';
 const utility = require("./utility");
+import * as async from "./async.min.js";
 
 var ble = {
 	/**
