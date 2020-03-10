@@ -1,24 +1,3 @@
-if(!String.prototype.startsWith){
-    String.prototype.startsWith = function (str) {
-        return !this.indexOf(str);
-    }
-}
-if (!String.prototype.endWith) {
-    String.prototype.endWith = function (str) {
-        if (this.length < str.length) return false;
-        return this.substr(this.length - str.length) == str;
-    }
-}
-String.format = function() {
-  var s = arguments[0];
-  for (var i = 0; i < arguments.length - 1; i++) {       
-    var reg = new RegExp("\\{" + i + "\\}", "gm");             
-    s = s.replace(reg, arguments[i + 1]);
-  }
-
-  return s;
-}
-
 /**
  * 工具类
  */
@@ -203,3 +182,5 @@ var utility = {
         return result;
     }
 }
+
+module.exports = utility;

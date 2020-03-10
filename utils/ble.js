@@ -1,4 +1,5 @@
 'use strict';
+const utility = require("./utility");
 
 var ble = {
 	/**
@@ -57,12 +58,14 @@ var ble = {
 			.catch((e) => callback(e))
 			.finally(() => {
 				// 清理
-				plus.bluetooth.stopBluetoothDevicesDiscovery({});
+				wx.stopBluetoothDevicesDiscovery({});
 				if (device) {
 					console.log("关闭连接");
-					plus.bluetooth.closeBLEConnection({
+					wx.closeBLEConnection({
 						deviceId: device.deviceId
 					});
+
+          wx.closeBluetoothAdapter({})
 				}
 				ble.onNotify = null;
 			});
@@ -170,7 +173,7 @@ var ble = {
 		return new Promise((resolve, reject) => {
 			console.log("ble.connect: " + device.id);
 			
-			plus.bluetooth.createBLEConnection({
+      wx.createBLEConnection({
 				deviceId: device.deviceId,
 				timeout: ble.connectTimeout,
 				success: function() {
@@ -196,7 +199,7 @@ var ble = {
 			console.log("ble.setup");
 			
 			// 获取服务
-			plus.bluetooth.getBLEDeviceServices({
+      wx.getBLEDeviceServices({
 				deviceId: device.deviceId,
 				success: function(e) {
 					let service = null;
@@ -216,7 +219,7 @@ var ble = {
 					}
 					
 					// 获取特征
-					plus.bluetooth.getBLEDeviceCharacteristics({
+          wx.getBLEDeviceCharacteristics({
 						deviceId: device.deviceId,
 						serviceId: serviceUUID,
 						success: function(e) {
@@ -239,7 +242,7 @@ var ble = {
 							}
 							
 							// 订阅通知
-							plus.bluetooth.notifyBLECharacteristicValueChange({
+              wx.notifyBLECharacteristicValueChange({
 								deviceId: device.deviceId,
 								serviceId: serviceUUID,
 								characteristicId: notifyUUID,
@@ -278,7 +281,7 @@ var ble = {
 				setTimeout(() => {
 					console.log("写入数据: " + d);
 					var v = utility.hexString2Data(d);
-					plus.bluetooth.writeBLECharacteristicValue({
+					wx.writeBLECharacteristicValue({
 						deviceId: device.deviceId,
 						serviceId: serviceUUID,
 						characteristicId: writeUUID,
