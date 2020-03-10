@@ -3,13 +3,17 @@
 }
 
 .page-section {
-  margin-bottom: 20rpx;
+  margin-bottom: 60rpx;
 }
 .page-section-title {
   display: inline-block;
-  min-width: 270rpx;
-  margin-right: 20rpx;
+  color: gray;
 }
 .page-section input {
   font-size: 18px;
+  margin: 20rpx 0;
+}
+
+.btn-area {
+  margin-top: 60rpx;
 }

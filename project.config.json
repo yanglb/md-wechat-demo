@@ -1,5 +1,5 @@
 {
-	"description": "项目配置文件",
+	"description": "妙兜开放平台微信小程序开门Demo。",
 	"packOptions": {
 		"ignore": []
 	},
@@ -10,7 +10,14 @@
 		"minified": true,
 		"newFeature": true,
 		"autoAudits": false,
-		"checkInvalidKey": true
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.10.2",
