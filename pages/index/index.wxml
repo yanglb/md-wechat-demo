@@ -22,4 +22,6 @@
       </view>
     </form>
   </view>
+
+  <view class="support">技术支持 dev@yanglb.com </view>
 </view>

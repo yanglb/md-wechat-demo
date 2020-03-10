@@ -3,7 +3,7 @@
 }
 
 .page-section {
-  margin-bottom: 60rpx;
+  margin-bottom: 40rpx;
 }
 .page-section-title {
   display: inline-block;
@@ -16,4 +16,13 @@
 
 .btn-area {
   margin-top: 60rpx;
+}
+
+.support {
+  text-align: center;
+  color: gray;
+  position: fixed;
+  bottom: 20rpx;
+  width: 100%;
+  font-size: 16px;
 }
