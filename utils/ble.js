@@ -37,7 +37,7 @@ var ble = {
 			.then(() => {
 				// 经测试: 刚连接后获取服务会失败，先等待几秒钟
 				return new Promise((resolve, reject) => {
-					window.setTimeout(() => {
+					setTimeout(() => {
 						ble.setup(device, serviceUUID, writeUUID, notifyUUID)
 							.then(resolve)
 							.catch(reject);
@@ -99,7 +99,7 @@ var ble = {
 		return new Promise((resolve, reject) => {
 			console.log("ble.waitResponse");
 			// 超时
-			var t = window.setTimeout(() => {
+			var t = setTimeout(() => {
 				var e = new Error("等待设备回复超时");
 				ble.onNotify = null;
 				
@@ -107,7 +107,7 @@ var ble = {
 			}, ble.waitResponseTimeout);
 			
 			ble.onNotify = function(e) {
-				window.clearTimeout(t);
+				clearTimeout(t);
 				
 				var data = new Uint8Array(e.value);
 				var s = utility.data2hexString(data);
@@ -125,7 +125,7 @@ var ble = {
 			if (ble.scanMap[ssid]) return resolve(ble.scanMap[ssid]);
 			
 			// 超时
-			var t = window.setTimeout(() => {
+			var t = setTimeout(() => {
 				var e = new Error("扫描超时");
         wx.stopBluetoothDevicesDiscovery({});
 				reject(e);
@@ -142,7 +142,7 @@ var ble = {
 						
 						// 停止扫描
             wx.stopBluetoothDevicesDiscovery({});
-						window.clearTimeout(t);
+						clearTimeout(t);
 						
 						console.log('发现目标设备: ' + dev.name);
 						resolve(dev);
@@ -156,7 +156,7 @@ var ble = {
 				fail: function(e) {
 					console.log('扫描设备失败: '+JSON.stringify(e));
           wx.stopBluetoothDevicesDiscovery({});
-					window.clearTimeout(t);
+					clearTimeout(t);
 					reject(new Error('扫描设备失败'));
 				},
 				success: function() {
@@ -275,7 +275,7 @@ var ble = {
 			// 拆分数据并写入
 			var dataList = utility.splitString(data, 40);
 			async.eachLimit(dataList, 1, function(d, callback) {
-				window.setTimeout(() => {
+				setTimeout(() => {
 					console.log("写入数据: " + d);
 					var v = utility.hexString2Data(d);
 					plus.bluetooth.writeBLECharacteristicValue({
