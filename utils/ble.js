@@ -28,29 +28,35 @@ var ble = {
 		notifyUUID  = notifyUUID.toUpperCase();
 		
 		var device = null;
+    wx.showLoading({ title: '初始化' })
 		ble.init()
 			.then(() => {
+        wx.showLoading({ title: '扫描中' })
 				return ble.scan(ssid);
 			})
 			.then((dev) => {
 				device = dev;
+        wx.showLoading({ title: '连接中' })
 				return ble.connect(dev);
 			})
 			.then(() => {
+        wx.showLoading({ title: '配置蓝牙信息' })
 				// 经测试: 刚连接后获取服务会失败，先等待几秒钟。
 				return new Promise((resolve, reject) => {
 					setTimeout(() => {
 						ble.setup(device, serviceUUID, writeUUID, notifyUUID)
 							.then(resolve)
 							.catch(reject);
-					}, 1000);
+					}, 100);
 				})
 			})
 			.then(() => {
+        wx.showLoading({ title: '写入数据' })
         ble.notifyData = null;
 				return ble.writeData(device, serviceUUID, writeUUID, data);
 			})
 			.then(() => {
+        wx.showLoading({ title: '等待设备回复' })
 				return ble.waitResponse();
 			})
 			.then((res) => {
@@ -58,6 +64,8 @@ var ble = {
 			})
 			.catch((e) => callback(e))
 			.finally(() => {
+        wx.hideLoading()
+
 				// 清理
 				wx.stopBluetoothDevicesDiscovery({});
 				if (device) {
@@ -65,8 +73,6 @@ var ble = {
 					wx.closeBLEConnection({
 						deviceId: device.deviceId
 					});
-
-          // wx.closeBluetoothAdapter({})
 				}
 				ble.onNotify = null;
 			});
@@ -201,7 +207,7 @@ var ble = {
 					}
 					
 					console.log("连接失败: " + JSON.stringify(e));
-					reject(new Error("连接失败"));
+          reject(new Error("连接失败\n" + e.errMsg));
 				}
 			})
 		})
