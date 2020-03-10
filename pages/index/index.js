@@ -37,6 +37,13 @@ Page({
     wx.request({
       url: "http://121.40.204.191:18080/mdserver/service/getData",
       data: this.data,
+      fail: error => {
+        wx.showModal({
+          title: "错误",
+          content: "网络错误，无法获取开锁数据。\n" + error.errMsg,
+          showCancel: false
+        })
+      },
       success: (data) => {
         data = data.data;
         if (data.code != 0) {
