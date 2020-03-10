@@ -76,10 +76,10 @@ var ble = {
 		return new Promise((resolve, reject) => {
 			console.log("ble.init");
 			if (ble.isInited) return resolve();
-			plus.bluetooth.openBluetoothAdapter({
+      wx.openBluetoothAdapter({
 				success: function(e) {
 					ble.isInited = true;
-					plus.bluetooth.onBLECharacteristicValueChange(ble.onBLECharacteristicValueChange);
+          wx.onBLECharacteristicValueChange(ble.onBLECharacteristicValueChange);
 					resolve();
 				},
 				fail: function(e) {
@@ -127,12 +127,12 @@ var ble = {
 			// 超时
 			var t = window.setTimeout(() => {
 				var e = new Error("扫描超时");
-				plus.bluetooth.stopBluetoothDevicesDiscovery({});
+        wx.stopBluetoothDevicesDiscovery({});
 				reject(e);
 			}, ble.scanBLETimeout);
 			
 			// 监听扫描结果
-			plus.bluetooth.onBluetoothDeviceFound(devices => {
+      wx.onBluetoothDeviceFound(devices => {
 				for(var i in devices.devices){
 					var dev = devices.devices[i];
 					console.log('扫描到设备: ' + JSON.stringify(dev));
@@ -141,7 +141,7 @@ var ble = {
 						ble.scanMap[ssid] = dev;
 						
 						// 停止扫描
-						plus.bluetooth.stopBluetoothDevicesDiscovery({});
+            wx.stopBluetoothDevicesDiscovery({});
 						window.clearTimeout(t);
 						
 						console.log('发现目标设备: ' + dev.name);
@@ -151,11 +151,11 @@ var ble = {
 			});
 			
 			// 启动蓝牙扫描
-			plus.bluetooth.startBluetoothDevicesDiscovery({
+      wx.startBluetoothDevicesDiscovery({
 				allowDuplicatesKey: false,
 				fail: function(e) {
 					console.log('扫描设备失败: '+JSON.stringify(e));
-					plus.bluetooth.stopBluetoothDevicesDiscovery({});
+          wx.stopBluetoothDevicesDiscovery({});
 					window.clearTimeout(t);
 					reject(new Error('扫描设备失败'));
 				},

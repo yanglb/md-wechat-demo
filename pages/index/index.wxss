@@ -1,8 +1,15 @@
-label {
+.page-body {
+  margin: 0 20rpx;
+}
+
+.page-section {
+  margin-bottom: 20rpx;
+}
+.page-section-title {
   display: inline-block;
   min-width: 270rpx;
   margin-right: 20rpx;
 }
-.page-body {
-  margin: 0 20rpx;
+.page-section input {
+  font-size: 18px;
 }

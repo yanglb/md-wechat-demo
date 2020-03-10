@@ -4,35 +4,17 @@
     <form catchsubmit="openLock">
       <view class="page-section">
         <view class="page-section-title">服务器认证编号</view>
-        <view class="weui-cells weui-cells_after-title">
-          <view class="weui-cell weui-cell_input">
-            <view class="weui-cell__bd">
-              <input class="weui-input" bindblur="inputBlue" value='{{agt_num}}' name="agt_num" id="agt_num" placeholder="请输入服务器认证编号" />
-            </view>
-          </view>
-        </view>
+        <input bindblur="inputBlue" value='{{agt_num}}' name="agt_num" id="agt_num" placeholder="请输入服务器认证编号" />
       </view>
 
       <view class="page-section">
         <view class="page-section-title">App Key</view>
-        <view class="weui-cells weui-cells_after-title">
-          <view class="weui-cell weui-cell_input">
-            <view class="weui-cell__bd">
-              <input class="weui-input" id="app_key" bindblur="inputBlue" value='{{app_key}}' name="app_key" placeholder="请输入 App Key" />
-            </view>
-          </view>
-        </view>
+        <input id="app_key" bindblur="inputBlue" value='{{app_key}}' name="app_key" placeholder="请输入 App Key" />
       </view>
 
       <view class="page-section">
         <view class="page-section-title">硬件ID</view>
-        <view class="weui-cells weui-cells_after-title">
-          <view class="weui-cell weui-cell_input">
-            <view class="weui-cell__bd">
-              <input class="weui-input" id="pid" bindblur="inputBlue" value='{{pid}}' name="pid" placeholder="请输入 PID" />
-            </view>
-          </view>
-        </view>
+        <input id="pid" bindblur="inputBlue" value='{{pid}}' name="pid" placeholder="请输入 PID" />
       </view>
 
       <view class="btn-area">
