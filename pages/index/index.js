@@ -70,7 +70,6 @@ Page({
             // 成功 打印通知数据
             console.log("设备返回数据: " + notifyData);
             if (notifyData.toUpperCase() == data.data.callback_success.toUpperCase()) {
-              alert("开门成功");
               wx.showModal({
                 title: "开门成功",
                 showCancel: false

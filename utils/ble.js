@@ -16,7 +16,7 @@ var ble = {
 	/**
 	 * 连接超时时间
 	 */
-	connectTimeout: 2000,
+	connectTimeout: 4000,
 	
 	/**
 	 * 向蓝牙设备写入数据，并等待设备回复
@@ -37,7 +37,7 @@ var ble = {
 				return ble.connect(dev);
 			})
 			.then(() => {
-				// 经测试: 刚连接后获取服务会失败，先等待几秒钟
+				// 经测试: 刚连接后获取服务会失败，先等待几秒钟。
 				return new Promise((resolve, reject) => {
 					setTimeout(() => {
 						ble.setup(device, serviceUUID, writeUUID, notifyUUID)
@@ -45,9 +45,9 @@ var ble = {
 							.catch(reject);
 					}, 1000);
 				})
-				// return ble.setup(device, serviceUUID, writeUUID, notifyUUID);
 			})
 			.then(() => {
+        ble.notifyData = null;
 				return ble.writeData(device, serviceUUID, writeUUID, data);
 			})
 			.then(() => {
@@ -66,7 +66,7 @@ var ble = {
 						deviceId: device.deviceId
 					});
 
-          wx.closeBluetoothAdapter({})
+          // wx.closeBluetoothAdapter({})
 				}
 				ble.onNotify = null;
 			});
@@ -97,11 +97,23 @@ var ble = {
 		console.log("onBLECharacteristicValueChange: " + event.deviceId);
 		if (typeof(ble.onNotify) === 'function') {
 			ble.onNotify(event);
-		}
+		} else {
+      ble.notifyData = event;
+    }
 	},
 	waitResponse: function() {
 		return new Promise((resolve, reject) => {
 			console.log("ble.waitResponse");
+      if (ble.notifyData) {
+        let e = ble.notifyData;
+        ble.notifyData = null;
+
+        var data = new Uint8Array(e.value);
+        var s = utility.data2hexString(data);
+        console.log("设备回复: " + s);
+        resolve(s);
+        return ;
+      }
 			// 超时
 			var t = setTimeout(() => {
 				var e = new Error("等待设备回复超时");
@@ -172,7 +184,7 @@ var ble = {
 	
 	connect: function(device) {
 		return new Promise((resolve, reject) => {
-			console.log("ble.connect: " + device.id);
+			console.log("ble.connect: " + device.name);
 			
       wx.createBLEConnection({
 				deviceId: device.deviceId,
