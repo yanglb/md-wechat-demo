@@ -1,6 +1,6 @@
 'use strict';
-const utility = require("./utility");
-import * as async from "./async.min.js";
+const util = require("./util");
+import * as async from "./async.min";
 
 var ble = {
 	/**
@@ -109,7 +109,7 @@ var ble = {
         ble.notifyData = null;
 
         var data = new Uint8Array(e.value);
-        var s = utility.data2hexString(data);
+        var s = util.data2hexString(data);
         console.log("设备回复: " + s);
         resolve(s);
         return ;
@@ -126,7 +126,7 @@ var ble = {
 				clearTimeout(t);
 				
 				var data = new Uint8Array(e.value);
-				var s = utility.data2hexString(data);
+				var s = util.data2hexString(data);
 				console.log("设备回复: " + s);
 				resolve(s);
 			}
@@ -289,11 +289,11 @@ var ble = {
 			console.log("ble.writeData");
 			
 			// 拆分数据并写入
-			var dataList = utility.splitString(data, 40);
+			var dataList = util.splitString(data, 40);
 			async.eachLimit(dataList, 1, function(d, callback) {
 				setTimeout(() => {
 					console.log("写入数据: " + d);
-					var v = utility.hexString2Data(d);
+					var v = util.hexString2Data(d);
 					wx.writeBLECharacteristicValue({
 						deviceId: device.deviceId,
 						serviceId: serviceUUID,

@@ -1,7 +1,7 @@
 /**
  * 工具类
  */
-var utility = {
+var util = {
     /**
      * 获取本地保存的对象
      */
@@ -21,11 +21,11 @@ var utility = {
     },
     getOrSetObjectForKey: function(key, data) {
         if (typeof (data) != 'undefined') {
-            utility.setObjectForKey(data, key);
+            util.setObjectForKey(data, key);
             return data;
         }
 
-        return utility.objectForKey(key);
+        return util.objectForKey(key);
     },
 
     /**
@@ -183,4 +183,4 @@ var utility = {
     }
 }
 
-module.exports = utility;
+module.exports = util;
