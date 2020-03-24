@@ -35,7 +35,7 @@ Page({
     }
     
     wx.request({
-      url: "http://121.40.204.191:18080/mdserver/service/getData",
+      url: "https://md-open.yanglb.com/service/getData",
       data: this.data,
       fail: error => {
         wx.showModal({
